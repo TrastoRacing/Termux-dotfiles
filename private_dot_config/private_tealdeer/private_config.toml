@@ -1,0 +1,28 @@
+# ~/.config/tealdeer/config.toml
+# Configuración de tealdeer (tldr) con auto-actualización y estilo Tokyo Night
+
+[display]
+compact = false
+use_pager = false
+show_title = true
+
+[updates]
+auto_update = true
+auto_update_interval_hours = 168
+
+[style.command_name]
+foreground = "blue"
+bold = true
+
+[style.description]
+foreground = "white"
+
+[style.example_text]
+foreground = "green"
+
+[style.example_code]
+foreground = "cyan"
+
+[style.example_variable]
+foreground = "magenta"
+underline = true

@@ -1,0 +1,16 @@
+# ~/.config/yazi/keymap.toml
+# Atajos personalizados integrados con el portapapeles y herramientas de Android / Termux
+
+[mgr]
+prepend_keymap = [
+    # Portapapeles del sistema Android (termux-api)
+    { on = [ "c", "p" ], run = 'shell -- printf "%s" "$1" | termux-clipboard-set', desc = "Copiar ruta absoluta al portapapeles de Android" },
+    { on = [ "c", "d" ], run = 'shell -- dirname "$1" | tr -d "\n" | termux-clipboard-set', desc = "Copiar directorio contenedor al portapapeles de Android" },
+    { on = [ "c", "n" ], run = 'shell -- basename "$1" | tr -d "\n" | termux-clipboard-set', desc = "Copiar nombre de archivo al portapapeles de Android" },
+
+    # Acceso directo a abrir con visor/app externa de Android
+    { on = [ "T" ], run = 'shell -- termux-open "$1"', desc = "Abrir con aplicación externa de Android" },
+
+    # Abrir shell interactivo en la carpeta actual
+    { on = [ "!" ], run = 'shell "$SHELL" --block', desc = "Abrir Zsh en el directorio actual" },
+]

@@ -1,0 +1,54 @@
+# =============================================================================
+# Gitignore - Strict Protection Against Secrets and Sensitive Data
+# =============================================================================
+# Firewall preventing accidental inclusion of secrets or machine-specific data.
+
+# SSH keys, GPG and certificates
+*dot_ssh*
+*ssh*
+*gnupg*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*id_rsa*
+*id_ed25519*
+*id_ecdsa*
+*known_hosts*
+*authorized_keys*
+
+# CLI tokens, API keys and secrets
+*dot_config/gh*
+*dot_config/private_gh*
+*dot_atuin*
+*hosts.yml
+*history.db*
+*dot_gitconfig*
+*dot_netrc*
+*dot_npmrc*
+*dot_yarnrc*
+*dot_pypirc*
+*dot_docker*
+*dot_kube*
+*dot_aws*
+*dot_gemini*
+*dot_omp*
+*.env
+*.env.*
+*secret*
+*token*
+*credential*
+*password*
+*passwd*
+
+# Shell history and local caches
+*history*
+*zcompdump*
+*dot_cache*
+*dot_local*
+*dot_zsh_backups*
+*.bak
+*.swp
+*.swo
+*~

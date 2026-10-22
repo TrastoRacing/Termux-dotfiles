@@ -1,0 +1,29 @@
+# =============================================================================
+# .chezmoiignore - Repository files that must NOT be deployed to $HOME
+# =============================================================================
+README.md
+LICENSE
+AUDIT.md
+assets
+assets/**
+
+# Never manage or overwrite sensitive target files in $HOME
+.ssh
+.ssh/**
+.gnupg
+.gnupg/**
+.config/gh
+.config/gh/**
+.atuin
+.atuin/**
+.gemini
+.gemini/**
+.omp
+.omp/**
+.zsh_history
+.bash_history
+.zcompdump*
+.netrc
+.npmrc
+.env
+.env.*

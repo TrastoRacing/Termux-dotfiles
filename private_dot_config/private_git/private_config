@@ -1,0 +1,28 @@
+# ~/.config/git/config
+# Configuración global de Git gestionada por chezmoi (Zero Secrets)
+# Paginador Delta con paleta Tokyo Night y navegación interactiva
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	line-numbers = true
+	side-by-side = false
+	syntax-theme = Coldark-Dark
+	plus-style = syntax "#1a3b32"
+	minus-style = syntax "#3f202a"
+	plus-emph-style = syntax "#28604d"
+	minus-emph-style = syntax "#692e3a"
+	line-numbers-minus-style = "#f7768e"
+	line-numbers-plus-style = "#9ece6a"
+	line-numbers-left-style = "#565f89"
+	line-numbers-right-style = "#565f89"
+	line-numbers-zero-style = "#565f89"
+
+[merge]
+	conflictStyle = zdiff3

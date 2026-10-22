@@ -1,0 +1,93 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "background": "#24283b",
+          "foreground": "#7dcfff",
+          "style": "plain",
+          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} \ue0b1",
+          "type": "os"
+        },
+        {
+          "background": "#24283b",
+          "foreground": "#f7768e",
+          "style": "plain",
+          "template": " \uf0e7 ",
+          "type": "root"
+        },
+        {
+          "background": "#24283b",
+          "foreground": "#7dcfff",
+          "options": {
+            "style": "full"
+          },
+          "style": "plain",
+          "template": " {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "background": "#24283b",
+          "foreground": "#9ece6a",
+          "style": "plain",
+          "template": "<#7dcfff>\ue0b1 </>{{ .HEAD }} ",
+          "type": "git"
+        },
+        {
+          "background": "transparent",
+          "foreground": "#24283b",
+          "style": "plain",
+          "template": "\ue0b0",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "background": "#24283b",
+          "foreground": "#bb9af7",
+          "leading_diamond": "\ue0b2",
+          "style": "diamond",
+          "template": " {{ .UserName }}@{{ .HostName }} <#7dcfff>\ue0b3</> ",
+          "type": "session"
+        },
+        {
+          "background": "#24283b",
+          "foreground": "#7aa2f7",
+          "options": {
+            "time_format": "15:04:05"
+          },
+          "style": "plain",
+          "template": " {{ .CurrentDate | date .Format }} \uf017 ",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#7aa2f7",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}#f7768e{{ end }}"
+          ],
+          "options": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\u276f ",
+          "type": "status"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,6 @@
+# ~/.config/yazi/theme.toml
+# Tema visual integrado con el ecosistema Tokyo Night
+
+[flavor]
+dark = "tokyo-night"
+light = "tokyo-night"

@@ -1,0 +1,244 @@
+# ~/.zshrc
+
+# -----------------------------------------------------------------------------
+# 1. Environment & PATH
+# -----------------------------------------------------------------------------
+export PATH="$HOME/.local/bin:$HOME/.bun/bin:$PATH"
+
+# -----------------------------------------------------------------------------
+# 2. History Configuration
+# -----------------------------------------------------------------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory sharehistory incappendhistory
+
+# -----------------------------------------------------------------------------
+# 3. Completion System
+# -----------------------------------------------------------------------------
+# Include Termux package completion scripts (zsh-completions, eza, bat, fd, rg, etc.)
+if [[ -d "$PREFIX/share/zsh/site-functions" ]]; then
+    fpath=("$PREFIX/share/zsh/site-functions" $fpath)
+fi
+autoload -Uz compinit
+compinit -d "$HOME/.zcompdump"
+
+# -----------------------------------------------------------------------------
+# 4. Bat (modern 'cat' with syntax highlighting)
+# -----------------------------------------------------------------------------
+if command -v bat >/dev/null 2>&1; then
+    # cat: colorized without pager (like standard cat)
+    alias cat="bat --paging=never"
+    # batp: view with pager (useful for long files)
+    alias batp="bat --paging=always"
+    # Bat as manual pager (syntax-highlighted man pages)
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# -----------------------------------------------------------------------------
+# 5. Eza (modern replacement for 'ls')
+# -----------------------------------------------------------------------------
+if command -v eza >/dev/null 2>&1; then
+    alias ls="eza --icons=auto --group-directories-first"
+    alias ll="eza -l --icons=auto --group-directories-first"
+    alias la="eza -la --icons=auto --group-directories-first"
+    alias lt="eza --tree --level=2 --icons=auto --group-directories-first"
+fi
+
+# -----------------------------------------------------------------------------
+# 6. FZF (Fuzzy Finder) & Integration with FD and Bat/Eza
+# -----------------------------------------------------------------------------
+if command -v fzf >/dev/null 2>&1; then
+    # Load official shell integration (key bindings & completion)
+    eval "$(fzf --zsh)"
+
+    # Default FZF UI options (optimized for mobile/terminal)
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --inline-info"
+
+    # Integrate FD with FZF (faster search, respects .gitignore, includes hidden files)
+    if command -v fd >/dev/null 2>&1; then
+        export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --hidden --follow --exclude .git"
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND="fd --type d --strip-cwd-prefix --hidden --follow --exclude .git"
+
+        # Tab completion triggers (**<TAB>) using fd
+        _fzf_compgen_path() {
+            fd --hidden --follow --exclude ".git" . "$1"
+        }
+        _fzf_compgen_dir() {
+            fd --type d --hidden --follow --exclude ".git" . "$1"
+        }
+    fi
+
+    # Previews using bat (for files) and eza (for directories)
+    if command -v bat >/dev/null 2>&1; then
+        export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {} 2>/dev/null || cat {}'"
+    fi
+    if command -v eza >/dev/null 2>&1; then
+        export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 {} 2>/dev/null || ls -la {}'"
+    fi
+fi
+
+# -----------------------------------------------------------------------------
+# 7. Ripgrep (rg) Interactive Search (rg + fzf + bat)
+# -----------------------------------------------------------------------------
+# Search file content interactively, preview matches with bat, jump or copy
+if command -v rg >/dev/null 2>&1 && command -v fzf >/dev/null 2>&1; then
+    rgi() {
+        local initial_query="${*:-}"
+        local rg_prefix="rg --column --line-number --no-heading --color=always --smart-case "
+        fzf --ansi --disabled --query "$initial_query" \
+            --bind "start:reload:$rg_prefix {q}" \
+            --bind "change:reload:$rg_prefix {q}" \
+            --delimiter : \
+            --preview "bat --color=always --highlight-line {2} {1} 2>/dev/null" \
+            --preview-window "up,60%,border-bottom,+{2}+3/3,~3"
+    }
+fi
+
+# -----------------------------------------------------------------------------
+# 8. Fastfetch (Terminal Rice on startup)
+# -----------------------------------------------------------------------------
+if [[ -o interactive ]] && command -v fastfetch >/dev/null 2>&1; then
+    fastfetch
+fi
+
+# -----------------------------------------------------------------------------
+# 9. Prompt: Oh My Posh
+# -----------------------------------------------------------------------------
+if command -v oh-my-posh >/dev/null 2>&1; then
+    if [[ -f "$HOME/.config/oh-my-posh/powerlevel10k_classic.omp.json" ]]; then
+        eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/powerlevel10k_classic.omp.json")"
+    else
+        eval "$(oh-my-posh init zsh --config "$PREFIX/share/oh-my-posh/themes/powerlevel10k_classic.omp.json")"
+    fi
+fi
+
+# -----------------------------------------------------------------------------
+# 10. Modern Disk Space Utility (duf)
+# -----------------------------------------------------------------------------
+if command -v duf >/dev/null 2>&1; then
+    # Filters out Android virtual apex/loop mounts and shows Termux + User storage cleanly
+    alias df="duf /data /storage/emulated"
+fi
+
+# -----------------------------------------------------------------------------
+# 11. Default Editor (Neovim + LazyVim)
+# -----------------------------------------------------------------------------
+if command -v nvim >/dev/null 2>&1; then
+    export EDITOR="nvim"
+    export VISUAL="nvim"
+    alias vim="nvim"
+    alias vi="nvim"
+    alias v="nvim"
+fi
+
+# -----------------------------------------------------------------------------
+# 12. Yazi (modern terminal file manager)
+# -----------------------------------------------------------------------------
+if command -v yazi >/dev/null 2>&1; then
+    # Shell wrapper: changes cwd on exit with 'q' (press 'Q' to quit without changing cwd)
+    function y() {
+        local tmp cwd
+        tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+        command yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d '' cwd < "$tmp"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+        command rm -f -- "$tmp"
+    }
+
+    # Synchronize CWD on subshell exit if inside Yazi
+    if [[ -n "$YAZI_ID" ]]; then
+        function _yazi_cd() {
+            ya emit cd "$PWD"
+        }
+        autoload -Uz add-zsh-hook
+        add-zsh-hook zshexit _yazi_cd
+    fi
+
+    alias yz="y"
+fi
+
+# -----------------------------------------------------------------------------
+# 13. Tmux (Terminal Multiplexer)
+# -----------------------------------------------------------------------------
+if command -v tmux >/dev/null 2>&1; then
+    # ta: conecta a la sesión 'main' existente o crea una nueva automáticamente
+    alias ta="tmux attach-session -t main 2>/dev/null || tmux new-session -s main"
+    # tls: lista las sesiones de tmux activas
+    alias tls="tmux list-sessions"
+    # tkill: finaliza el servidor de tmux y todas sus sesiones
+    alias tkill="tmux kill-server"
+fi
+
+# -----------------------------------------------------------------------------
+# 14. Zoxide (smart cd)
+# -----------------------------------------------------------------------------
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
+fi
+
+# -----------------------------------------------------------------------------
+# 15. Bottom (modern process & system monitor)
+# -----------------------------------------------------------------------------
+if command -v btm >/dev/null 2>&1; then
+    alias bottom="btm"
+fi
+
+# -----------------------------------------------------------------------------
+# 16. Mise (polyglot runtime & environment manager)
+# -----------------------------------------------------------------------------
+if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
+fi
+
+# -----------------------------------------------------------------------------
+# 17. Atuin (magical shell history with SQLite)
+# -----------------------------------------------------------------------------
+if command -v atuin >/dev/null 2>&1; then
+    # Desactivar atajos automáticos de atuin (conserva intacto el Ctrl+R de fzf y la flecha arriba)
+    export ATUIN_NOBIND="true"
+    eval "$(atuin init zsh --disable-ctrl-r --disable-up-arrow --disable-ai)"
+
+    # Asegurar explícitamente que Ctrl+R y la flecha arriba queden asignados a FZF y Zsh nativo
+    if command -v fzf >/dev/null 2>&1; then
+        bindkey -M emacs '^r' fzf-history-widget 2>/dev/null || true
+        bindkey -M viins '^r' fzf-history-widget 2>/dev/null || true
+        bindkey '^r' fzf-history-widget 2>/dev/null || true
+    fi
+    bindkey -M emacs '^[[A' up-line-or-history 2>/dev/null || true
+    bindkey -M emacs '^[OA' up-line-or-history 2>/dev/null || true
+    bindkey -M viins '^[[A' up-line-or-history 2>/dev/null || true
+    bindkey -M viins '^[OA' up-line-or-history 2>/dev/null || true
+
+    # Al escribir 'atuin' sin argumentos, abre directamente la búsqueda interactiva
+    function atuin() {
+        if (( $# == 0 )); then
+            command atuin search -i
+        else
+            command atuin "$@"
+        fi
+    }
+    alias at="atuin"
+fi
+
+# -----------------------------------------------------------------------------
+# 18. Zsh Autosuggestions (Fish-like suggestion from history)
+# -----------------------------------------------------------------------------
+if [[ -f "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    # Resaltado sutil en gris Tokyo Night (#565f89)
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#565f89"
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+    source "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+# -----------------------------------------------------------------------------
+# 19. Zsh Syntax Highlighting (Real-time syntax validation - MUST BE LAST)
+# -----------------------------------------------------------------------------
+if [[ -f "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
+
+
+

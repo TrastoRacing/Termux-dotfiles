@@ -1,0 +1,81 @@
+# ~/.config/bottom/bottom.toml
+# Configuración personalizada de bottom (btm) con tema Tokyo Night optimizada para Termux
+
+[flags]
+hide_table_gap = false
+battery = true
+enable_gpu = false
+hide_time = false
+default_time_value = "60s"
+rate = "1000ms"
+
+[processes]
+default_grouped = false
+default_tree = false
+current_usage = true
+
+# Layout adaptado para Termux / Android:
+# Elimina los widgets de temperatura y discos que quedan vacíos por las restricciones
+# de permisos/sandbox del kernel de Android sin root, dando máxima visibilidad a CPU, Memoria, Red y Procesos.
+[[row]]
+  ratio = 40
+  [[row.child]]
+    ratio = 60
+    type = "cpu"
+  [[row.child]]
+    ratio = 40
+    type = "memory"
+
+[[row]]
+  ratio = 60
+  [[row.child]]
+    ratio = 35
+    type = "network"
+  [[row.child]]
+    ratio = 65
+    type = "processes"
+    default = true
+
+[styles.layouts]
+highlights = { colour = "#bb9af7", bold = true }
+cpu_core_style = { colour = "#7aa2f7" }
+
+[styles.widgets]
+border_colour = "#414868"
+selected_border_colour = "#7aa2f7"
+widget_title = { colour = "#c0caf5", bold = true }
+graph_text = { colour = "#9abdf5" }
+
+[styles.cpu]
+all_entry_colour = "#7aa2f7"
+cpu_core_styles = [
+    { colour = "#7dcfff" },
+    { colour = "#7aa2f7" },
+    { colour = "#bb9af7" },
+    { colour = "#9ece6a" },
+    { colour = "#e0af68" },
+    { colour = "#f7768e" },
+    { colour = "#7dcfff" },
+    { colour = "#7aa2f7" },
+]
+
+[styles.memory]
+ram_val = { colour = "#9ece6a" }
+swap_val = { colour = "#e0af68" }
+
+[styles.network]
+rx_val = { colour = "#9ece6a" }
+tx_val = { colour = "#f7768e" }
+
+[styles.battery]
+high_bat_val = { colour = "#9ece6a" }
+medium_bat_val = { colour = "#e0af68" }
+low_bat_val = { colour = "#f7768e" }
+
+[styles.storage]
+all_entry_colour = "#7dcfff"
+
+[styles.processes]
+process_text = { colour = "#c0caf5" }
+selected_text = { colour = "#1a1b26", bg_colour = "#7aa2f7", bold = true }
+heading_text = { colour = "#bb9af7", bold = true }

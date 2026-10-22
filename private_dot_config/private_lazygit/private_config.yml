@@ -1,0 +1,21 @@
+# ~/.config/lazygit/config.yml
+# Configuración personalizada de Lazygit con delta y tema Tokyo Night
+
+gui:
+  theme:
+    activeBorderColor:
+      - '#7aa2f7'
+      - bold
+    inactiveBorderColor:
+      - '#414868'
+    selectedLineBgColor:
+      - '#292e42'
+    cherryPickedCommitBgColor:
+      - '#3b4261'
+    cherryPickedCommitFgColor:
+      - '#7aa2f7'
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
