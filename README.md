@@ -10,6 +10,8 @@ Optimized for mobile productivity with hardware keyboards, trackpads, and touch 
 
 ![Neovim IDE and Shell Workflow](assets/screenshot-dev.webp)
 
+![Neovim with Floating Code Minimap](assets/screenshot-minimap.webp)
+
 ![Yazi File Manager and System Monitoring](assets/screenshot-tools.webp)
 
 ---
@@ -51,7 +53,7 @@ git config --file ~/.gitconfig user.email "your.email@example.com"
 | :--- | :--- | :--- |
 | **Zsh & Oh My Posh** | Interactive Shell | Powerlevel10k Classic prompt, history sharing, directory hashing, and fast completion. |
 | **Tmux** | Terminal Multiplexer | Session persistence against Android process suspension, hardware keyboard splits, and trackpad support. |
-| **Neovim & LazyVim** | Code Editor / IDE | Tokyo Night Moon palette, full LSP suite, auto-formatting, auto-save, and Lazygit integration. |
+| **Neovim & LazyVim** | Code Editor / IDE | Tokyo Night Moon palette, full LSP suite, code minimap, auto-formatting, auto-save, and Lazygit integration. |
 | **Yazi** | File Manager | Asynchronous TUI file manager with image, PDF, and video previews, plus Android clipboard sync. |
 | **Mise** | Polyglot Runtime Manager | High-performance Rust manager replacing `nvm`/`pyenv`/`asdf` for instant project-level toolchain switching. |
 | **Modern CLI Stack** | Productivity Utilities | `fzf`, `fd`, `ripgrep`, `bat`, `eza`, `zoxide`, `bottom`, `atuin`, `duf`, `tealdeer`, and `lazygit`. |
@@ -65,6 +67,7 @@ Standard desktop dotfiles frequently run into compatibility limitations on Andro
 - **Keyboard Splits in Tmux:** Primary vertical splits are bound to `Ctrl + a` followed by `v`, and horizontal splits to `Ctrl + a` followed by `s` or `-`, eliminating reliance on fragile `AltGr` symbol keys.
 - **Direct Pane Navigation:** Move between splits without pressing a prefix key using `Alt + Arrow keys`.
 - **Trackpad and Mouse Integration:** Global mouse mode is active (`set -g mouse on`), allowing single-tap pane focusing, border dragging to resize splits, and two-finger scrolling for history buffers.
+- **Touch-Enabled Code Minimap:** Floating code overview powered by `neominimap.nvim` with Braille pattern rendering and touch support — tap anywhere on the minimap to instantly jump to that line without manual scrolling.
 - **Native Android Clipboard Bridge:** Seamless interoperability with Android system clipboards via `termux-clipboard-set` and `termux-open`. Holding `Shift` bypasses terminal mouse capture for native text selection.
 
 ---

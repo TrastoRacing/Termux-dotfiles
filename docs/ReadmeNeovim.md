@@ -119,9 +119,30 @@ From **Normal Mode**:
 - `<Space> cr`: Rename symbol across all project references.
 - `<Space> cf`: Format active buffer with configured formatter (Prettier, Stylua, Shfmt).
 - `<Space> xx`: Open Trouble diagnostics panel (shows workspace errors and warnings).
-- `[d` / `]d`: Jump to previous / next diagnostic diagnostic error.
+- `[d` / `]d`: Jump to previous / next diagnostic error.
 
 ### Yazi File Manager Integration
 
 - `<Space> -` or `<Space> y`: Open Yazi floating file manager centered on the current file buffer.
 - `<Space> cw`: Open Yazi rooted at the project working directory.
+
+### Code Minimap Integration (`neominimap.nvim`)
+
+- `<Space> nm`: Toggle floating code minimap on or off.
+- `<Space> no`: Explicitly enable code minimap.
+- `<Space> nc`: Explicitly disable code minimap.
+- `<Space> nf`: Focus the minimap window to navigate via keyboard.
+- `<Space> nu`: Unfocus the minimap and return to the main editor buffer.
+- `<Space> nr`: Force refresh the minimap buffer.
+- **Touch Navigation:** Tap directly on any section of the floating minimap to instantly warp the cursor to that line in the active buffer.
+
+---
+
+## 7. Touch and Mouse Interactions
+
+Neovim operates with full mouse and touch support enabled (`mouse = "a"`):
+
+- **Bufferline Tabs:** Tap any top tab to switch to that buffer immediately.
+- **Direct Cursor Placement:** Tap anywhere inside a code buffer to place the cursor on that line and column.
+- **Interactive Minimap:** Tap anywhere on the right-hand floating minimap to jump directly to that section of the document.
+- **Smooth Scrolling:** Use two-finger trackpad or touchscreen swipes for smooth vertical scrolling.
