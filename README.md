@@ -53,7 +53,7 @@ git config --file ~/.gitconfig user.email "your.email@example.com"
 | :--- | :--- | :--- |
 | **Zsh & Oh My Posh** | Interactive Shell | Powerlevel10k Classic prompt, history sharing, directory hashing, and fast completion. |
 | **Tmux** | Terminal Multiplexer | Session persistence against Android process suspension, hardware keyboard splits, and trackpad support. |
-| **Neovim & LazyVim** | Code Editor / IDE | Tokyo Night Moon palette, full LSP suite, code minimap, auto-formatting, auto-save, and Lazygit integration. |
+| **Neovim & LazyVim** | Code Editor / IDE | Tokyo Night Moon on Neovim 0.12+, full LSP suite, `smart-splits` Tmux bridge, `tiny-inline-diagnostic`, `quicker`, `cloak`, `yanky`, `chezmoi`, touch minimap, auto-save, and Lazygit. |
 | **Yazi** | File Manager | Asynchronous TUI file manager with image, PDF, and video previews, plus Android clipboard sync. |
 | **Mise** | Polyglot Runtime Manager | High-performance Rust manager replacing `nvm`/`pyenv`/`asdf` for instant project-level toolchain switching. |
 | **Modern CLI Stack** | Productivity Utilities | `fzf`, `fd`, `ripgrep`, `bat`, `eza`, `zoxide`, `bottom`, `atuin`, `duf`, `tealdeer`, and `lazygit`. |

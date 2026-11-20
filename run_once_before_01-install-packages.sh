@@ -17,6 +17,7 @@ TERMUX_PKGS=(
     neovim
     git
     gh
+    gitleaks
     lazygit
     git-delta
     yazi
@@ -92,6 +93,7 @@ if command -v npm >/dev/null 2>&1; then
         ["@astrojs/language-server@2.17.2"]="astro-ls"
         ["@olrtg/emmet-language-server@2.8.0"]="emmet-language-server"
         ["@vtsls/language-server@0.3.0"]="vtsls"
+        ["bash-language-server@5.8.1"]="bash-language-server"
         ["dockerfile-language-server-nodejs@0.15.0"]="docker-langserver"
         ["markdown-toc@1.2.0"]="markdown-toc"
         ["markdownlint-cli2@0.23.3"]="markdownlint-cli2"

@@ -13,7 +13,7 @@ Automated configuration management and provisioning workflow powered by [chezmoi
 | **Tmux** | `~/.tmux.conf` | `private_dot_tmux.conf` | Terminal multiplexer, session persistence against Android background process termination, and mouse/touch navigation. |
 | **Oh My Posh** | `~/.config/oh-my-posh/...` | `private_dot_config/private_oh-my-posh/...` | Self-contained Powerlevel10k Classic prompt theme configuration. |
 | **Fastfetch** | `~/.config/fastfetch/` | `private_dot_config/private_fastfetch/` | System information display configuration with automatic OS logo detection. |
-| **Neovim / LazyVim** | `~/.config/nvim/` | `private_dot_config/private_nvim/` | LazyVim IDE distribution, plugins (`auto-save`, `diffview`, `emmet`, `markdown-preview`, `markdownlint`, `mason`, `yazi.nvim`), and locks. |
+| **Neovim / LazyVim** | `~/.config/nvim/` | `private_dot_config/private_nvim/` | LazyVim on Neovim 0.12+, extras (`chezmoi`, `dot`, `yanky`, `inc-rename`, `mini-move`), plugins (`auto-save`, `cloak`, `diffview`, `emmet`, `markdown-preview`, `markdownlint`, `mason`, `mini-splitjoin`, `neominimap`, `quicker`, `smart-splits`, `tiny-inline-diagnostic`, `yazi`), and locks. |
 | **Markdownlint** | `~/.markdownlint.json` | `private_dot_markdownlint.json` | Global markdownlint configuration tuned for technical documentation. |
 | **Termux UI** | `~/.termux/` and `~/.hushlogin` | `private_dot_termux/` | MesloLGS Nerd Font (`font.ttf`), Tokyo Night Moon color scheme (`colors.properties`), and silent MOTD startup. |
 | **CLI Utilities** | `~/.config/` | `private_dot_config/...` | Tokyo Night configurations for Bottom (`btm`), Atuin, Tealdeer (`tldr`), Lazygit, and Htop. |
@@ -32,7 +32,12 @@ This repository strictly enforces a zero-secrets security baseline:
   - No Git credentials, personal signing keys, or GitHub CLI auth tokens (`~/.config/gh/hosts.yml`).
   - No shell history files (`~/.zsh_history`, `~/.bash_history`).
   - No AI assistant session databases or telemetry tokens (`~/.gemini`, `~/.omp`).
-- **Defensive Safeguards:** `.gitignore` and `.chezmoiignore` block accidental tracking of `.env`, `.pem`, `.key`, or files matching credential patterns.
+- **Defensive Safeguards & Pre-Push Audit (`gitleaks`):** `.gitignore` and `.chezmoiignore` block accidental tracking of `.env`, `.pem`, `.key`, or files matching credential patterns, and `gitleaks` is bundled to scan both the working directory and Git history before pushing:
+
+  ```bash
+  gitleaks dir ~/termux-dotfiles
+  gitleaks git ~/termux-dotfiles
+  ```
 
 ---
 

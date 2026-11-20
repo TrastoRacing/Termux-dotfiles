@@ -42,11 +42,11 @@ Tmux commands require pressing the prefix key combination before the command key
 | :--- | :--- | :--- |
 | **Split Vertically (columns side-by-side)** | `Ctrl + a` then `v` | `\|`, `\`, `%` |
 | **Split Horizontally (rows top and bottom)** | `Ctrl + a` then `s` or `-` | `_`, `"` |
-| **Navigate Panes Direct (no prefix)** | `Alt + Left / Down / Up / Right` | Direct jump |
+| **Navigate Panes Direct (no prefix)** | `Alt + Left / Down / Up / Right` | `Ctrl + h / j / k / l` *(seamless Neovim ↔ Tmux bridge via `smart-splits`)* |
 | **Navigate Panes with Vim keys** | `Ctrl + a` then `h` (left), `j` (down), `k` (up), `l` (right) | Directional arrows |
 | **Focus Pane with Pointer / Finger** | Tap or click directly inside the target pane | Border turns active blue |
 | **Resize Pane with Pointer / Finger** | Click and drag the dividing border line | Immediate live resize |
-| **Resize Pane with Keyboard** | `Ctrl + a` then `H` / `J` / `K` / `L` | Steps of 5 columns/rows |
+| **Resize Pane with Keyboard** | `Ctrl + a` then `H` / `J` / `K` / `L` | `Alt + Shift + H / J / K / L` *(unified with Neovim splits)* |
 | **Maximize / Restore Pane (Zoom)** | `Ctrl + a` then `z` | Toggles full-screen pane |
 | **Close Current Pane** | Type `exit` or press `Ctrl + d` | Closes active shell |
 

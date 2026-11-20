@@ -116,10 +116,24 @@ From **Normal Mode**:
 - `gI`: Jump to implementation.
 - `K`: Display hover documentation for symbol.
 - `<Space> ca`: Open code action menu (fixes, refactorings).
-- `<Space> cr`: Rename symbol across all project references.
+- `<Space> cr`: Rename symbol across all project references with live preview (`inc-rename.nvim`).
+- `<Space> cj`: Split or join code blocks, arrays, and arguments (`mini.splitjoin`).
 - `<Space> cf`: Format active buffer with configured formatter (Prettier, Stylua, Shfmt).
 - `<Space> xx`: Open Trouble diagnostics panel (shows workspace errors and warnings).
-- `[d` / `]d`: Jump to previous / next diagnostic error.
+- `<Space> xq` / `<Space> xl`: Toggle editable Quickfix / Location List with expandable context (`>` / `<`) via `quicker.nvim`.
+- `[d` / `]d`: Jump to previous / next diagnostic error (clean cursor-line inline rendering via `tiny-inline-diagnostic.nvim`).
+
+### Tmux Bridge, Productivity & Neovim 0.12 Built-ins
+
+- `Ctrl + h / j / k / l`: Seamlessly navigate between Neovim splits and Tmux panes (`smart-splits.nvim` + `backend-tmux`).
+- `Alt + Shift + H / J / K / L`: Seamlessly resize Neovim splits or Tmux panes.
+- `<Space> w H / J / K / L`: Swap current buffer with adjacent split.
+- `Alt + h / j / k / l`: Move current line or visual selection (`mini.move`).
+- `<Space> p` and `[y` / `]y`: Open yank history and cycle pasted entries (`yanky.nvim`).
+- `<Space> uk`: Toggle secret masking on `.env*`, `wrangler.toml`, and `.dev.vars` (`cloak.nvim`).
+- `<Space> sz`: Fuzzy-pick and live-edit Chezmoi-managed dotfiles (`chezmoi.nvim`).
+- `<Space> uu`: Toggle Neovim 0.12 built-in textual `:Undotree`.
+- `<Space> qr`: Restart Neovim in place via Neovim 0.12 native `:restart`.
 
 ### Yazi File Manager Integration
 
